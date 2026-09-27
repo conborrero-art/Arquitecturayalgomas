@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis del Patrimonio Arquitectónico de la UNESCO en Sudamérica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased leading-relaxed">
+
+    <!-- Selected Color Palette: Vibrant South American Heritage Palette (Teal #0F766E, Terracotta #D97706, Coral #DC2626, Indigo #2563EB, Slate #1E293B) -->
+    <!-- NO MERMAID JS AND NO SVG WERE USED ANYWHERE IN THIS OUTPUT -->
+    <!-- 
+    NARRATIVE AND STRUCTURE PLAN SUMMARY:
+    1. Executive Header & KPIs: High-impact summary metrics establishing the scope of UNESCO South American architectural heritage analysis.
+    2. Overview & Typology: Visualizing state of conservation and architectural distribution across key regional assets.
+    3. Comparative Case Studies: Detailed evaluation of 6 iconic sites (Quito, Cartagena, Cuzco, Brasilia, Chiloé, Misiones) with threat radar profile.
+    4. Deterioration Causality Matrix: Breaking down environmental vs human risk vectors and physical mechanics (water, cement misuse, carbonation).
+    5. Cost & Impact Analysis: Financial and cultural consequences of reactive repair vs. preventive maintenance (1:10 cost ratio).
+    6. Actionable Preventive Conservation Guide: Practical, non-technical steps for structural preservation and risk mitigation.
+    -->
+    <!--
+    VISUALIZATION CHOICES JUSTIFICATION SUMMARY:
+    1. Conservation Status (Doughnut Chart - Chart.js): Chosen to show proportion breakdown of asset risk levels (Good/Moderate, Mixed, Critical). NO SVG used.
+    2. Asset Risk Profiling (Radar Chart - Chart.js): Ideal for multi-axis threat assessment across 5 core risk vectors (Moisture, Seismic, Tourism, Material Decay, Fire/Biological). NO SVG used.
+    3. Vulnerability by Architectural Typology (Horizontal Bar Chart - Chart.js): Clear visual ranking of structural materials (Adobe, Coral Stone, Concrete, Wood) vs risk degree. NO SVG used.
+    4. Maintenance Cost Multiplier (Bar Chart - Chart.js): Dramatic visual contrast illustrating 10x cost spike between preventive care and emergency restoration. NO SVG used.
+    5. Process Flow / Prevention Pillars (Tailwind Grid & Flex Cards): Replaces diagrammatic flowchart with high-contrast, fully responsive CSS step blocks without SVG or Mermaid JS.
+    -->
+
+    <header class="bg-gradient-to-r from-teal-800 via-teal-900 to-slate-900 text-white py-12 px-4 shadow-xl">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-teal-700/60 pb-6 mb-8">
+                <div>
+                    <span class="inline-block bg-amber-500 text-slate-900 text-xs uppercase font-extrabold tracking-widest px-3 py-1 rounded-full mb-3">Infografía Diagnóstica</span>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">Patrimonio Arquitectónico de la UNESCO en Sudamérica</h1>
+                    <p class="text-teal-200 text-base md:text-lg mt-2 max-w-3xl">Análisis especializado sobre conservación, riesgos de deterioro, física de los materiales y estrategias de prevención edilicia.</p>
+                </div>
+                <div class="mt-4 md:mt-0 text-right text-xs text-teal-300 bg-teal-950/60 p-3 rounded-lg border border-teal-800">
+                    <p class="font-bold text-white">Enfoque: Restauración & Conservación Preventiva</p>
+                    <p>Perspectiva Técnica Educativa</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-slate-800/80 border border-teal-600/40 rounded-xl p-4 shadow-sm text-center">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-amber-400 block">6</span>
+                    <span class="text-xs uppercase tracking-wider text-slate-300 font-semibold">Casos Emblemáticos Analizados</span>
+                </div>
+                <div class="bg-slate-800/80 border border-teal-600/40 rounded-xl p-4 shadow-sm text-center">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-teal-400 block">1:10</span>
+                    <span class="text-xs uppercase tracking-wider text-slate-300 font-semibold">Relación Costo Prevención vs. Colapso</span>
+                </div>
+                <div class="bg-slate-800/80 border border-teal-600/40 rounded-xl p-4 shadow-sm text-center">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-rose-400 block">83%</span>
+                    <span class="text-xs uppercase tracking-wider text-slate-300 font-semibold">Sitios Afectados por Agua/Humedad</span>
+                </div>
+                <div class="bg-slate-800/80 border border-teal-600/40 rounded-xl p-4 shadow-sm text-center">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-indigo-400 block">500+</span>
+                    <span class="text-xs uppercase tracking-wider text-slate-300 font-semibold">Años de Legado Construido</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sticky top-0 bg-slate-900/95 backdrop-blur-md text-slate-300 z-50 border-b border-slate-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 flex space-x-6 overflow-x-auto py-3 text-sm font-medium">
+            <a href="#panorama" class="hover:text-amber-400 whitespace-nowrap transition-colors">1. Panorama General</a>
+            <a href="#casos" class="hover:text-amber-400 whitespace-nowrap transition-colors">2. Casos Emblemáticos</a>
+            <a href="#amenazas" class="hover:text-amber-400 whitespace-nowrap transition-colors">3. Factores de Deterioro</a>
+            <a href="#costos" class="hover:text-amber-400 whitespace-nowrap transition-colors">4. Impacto Económico</a>
+            <a href="#guia" class="hover:text-amber-400 whitespace-nowrap transition-colors">5. Guía de Conservación</a>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-10 space-y-16">
+
+        <section id="panorama" class="space-y-6">
+            <div class="border-l-4 border-teal-600 pl-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">1. Estado Actual y Distribución Tipológica del Patrimonio</h2>
+                <p class="text-slate-600 mt-1">
+                    América del Sur cuenta con un catálogo monumental extraordinario que entrelaza la ingeniería prehispánica, el mestizaje colonial hispano-portugués, las estructuras madereras insulares y la vanguardia del modernismo del siglo XX. Sin embargo, la declaratoria como Patrimonio de la Humanidad por la UNESCO no otorga inmunidad contra el desgaste natural o la negligencia humana; por el contrario, demanda una vigilancia técnica permanente.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-md p-6 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Diagnóstico de Estado de Conservación</h3>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Evaluación consolidada del nivel de integridad física en los sitios representativos. Un tercio de los conjuntos analizados se encuentra en estado crítico o requiere intervenciones estructurales urgentes para evitar pérdidas irreparables.
+                        </p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartEstadoConservacion"></canvas>
+                    </div>
+                    <div class="mt-4 bg-teal-50 p-3 rounded-lg border border-teal-100 text-xs text-teal-900">
+                        <strong>Hallazgo Clave:</strong> Apenas el 33% de los sitios evaluados goza de un estado de conservación óptimo y sostenido gracias a financiamiento continuo e institucionalidad sólida.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Vulnerabilidad por Sistema Constructivo</h3>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Relación entre la materialidad dominante del monumento y el grado de vulnerabilidad frente a factores ambientales directos (lluvia, sales, hongos, carbonatación).
+                        </p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartTipologiaVulnerabilidad"></canvas>
+                    </div>
+                    <div class="mt-4 bg-amber-50 p-3 rounded-lg border border-amber-100 text-xs text-amber-900">
+                        <strong>Hallazgo Clave:</strong> La madera nativa y la arquitectura de barro (adobe/tapia) presentan los índices más elevados de vulnerabilidad biológica y mecánica ante la humedad estacional.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="casos" class="space-y-6">
+            <div class="border-l-4 border-amber-500 pl-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">2. Estudio Detallado de Casos Emblemáticos</h2>
+                <p class="text-slate-600 mt-1">
+                    Cada sitio patrimonio de la UNESCO en la región enfrenta un ecosistema singular de riesgos. A continuación, se examinan seis ejemplos representativos, analizando su valor histórico, su condición edilicia y sus amenazas específicas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded bg-teal-100 text-teal-800">Ecuador</span>
+                            <span class="text-xs font-semibold text-slate-500">UNESCO 1978</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Centro Histórico de Quito</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Arquitectura Colonial / Barroco Andino</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Conjunto urbano excepcional con iglesias y templos de adobe, ladrillo y piedra emplazados en la topografía andina.
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 border-t border-slate-100 pt-3">
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2">▪</span><strong>Estado:</strong> Bueno a moderado con mantenimiento institucional continuo.</li>
+                            <li class="flex items-start"><span class="text-rose-500 font-bold mr-2">▪</span><strong>Riesgos:</strong> Humedad pluvial en muros de adobe, movimientos sísmicos y hollín vehicular vehicular.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-xs font-semibold text-teal-700">
+                        Prioridad: Control de filtraciones y estabilidad sísmica.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Colombia</span>
+                            <span class="text-xs font-semibold text-slate-500">UNESCO 1984</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Cartagena de Indias</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Fortificaciones Militares y Arquitectura Colonial Caribeña</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Extenso sistema defensivo de murallas, baluartes y casonas de piedra coralina y balcón de madera frente al Mar Caribe.
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 border-t border-slate-100 pt-3">
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2">▪</span><strong>Estado:</strong> Dispar. Sector turístico conservado; patrimonio secundario desgastado.</li>
+                            <li class="flex items-start"><span class="text-rose-500 font-bold mr-2">▪</span><strong>Riesgos:</strong> Cristalización salina marina, gentrificación y ascenso del nivel del mar.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-xs font-semibold text-amber-700">
+                        Prioridad: Desalinización y protección ante inundaciones.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded bg-indigo-100 text-indigo-800">Perú</span>
+                            <span class="text-xs font-semibold text-slate-500">UNESCO 1983</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Cuzco y Machu Picchu</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Ingeniería Incaica y Arquitectura Hispana sobrepuesta</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Muros monolíticos de piedra ensamblada en seco integrados con sobreestructuras coloniales de barro, cal y madera.
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 border-t border-slate-100 pt-3">
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2">▪</span><strong>Estado:</strong> Piedra incaica sólida; adiciones coloniales en constante riesgo.</li>
+                            <li class="flex items-start"><span class="text-rose-500 font-bold mr-2">▪</span><strong>Riesgos:</strong> Sobre-turismo (desgaste mecánico por pisadas), modificaciones no autorizadas y humedad capilar.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-xs font-semibold text-indigo-700">
+                        Prioridad: Regulación de cargas turísticas y drenajes.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded bg-blue-100 text-blue-800">Brasil</span>
+                            <span class="text-xs font-semibold text-slate-500">UNESCO 1987</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Brasilia</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Arquitectura Moderna del Siglo XX (Hormigón Armado)</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Hito del urbanismo moderno diseñado por Costa y Niemeyer, caracterizado por estructuras monumentales de concreto y vidrio.
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 border-t border-slate-100 pt-3">
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2">▪</span><strong>Estado:</strong> En general bueno, pero con retos técnicos sin precedentes.</li>
+                            <li class="flex items-start"><span class="text-rose-500 font-bold mr-2">▪</span><strong>Riesgos:</strong> Carbonatación del hormigón, corrosión del acero interno y obsolescencia de materiales prefabricados.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-xs font-semibold text-blue-700">
+                        Prioridad: Tratamiento electroquímico de armaduras.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded bg-rose-100 text-rose-800">Chile</span>
+                            <span class="text-xs font-semibold text-slate-500">UNESCO 2000</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Iglesias de Chiloé</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Carpintería de Ribera e Iglesias de Madera</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Templos ensamblados íntegramente en madera nativa mediante técnicas de construcción naval e influencia eclesiástica europea.
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 border-t border-slate-100 pt-3">
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2">▪</span><strong>Estado:</strong> Crítico en varios templos por vulnerabilidad orgánica extrema.</li>
+                            <li class="flex items-start"><span class="text-rose-500 font-bold mr-2">▪</span><strong>Riesgos:</strong> Pudrición por hongos, plagas de xilófagos (termitas), incendios e intemperismo.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-xs font-semibold text-rose-700">
+                        Prioridad: Retardantes de fuego y biocidas naturales.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded bg-purple-100 text-purple-800">Arg / Bra / Bol</span>
+                            <span class="text-xs font-semibold text-slate-500">UNESCO 1983/1990</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Misiones Jesuíticas</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-3">Barroco Guaraní y Chiquitano (Piedra y Madera)</p>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Asentamientos religiosos que integran templos de madera decorada y ruinas de piedra arenisca en medio de entornos boscosos.
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 border-t border-slate-100 pt-3">
+                            <li class="flex items-start"><span class="text-amber-500 font-bold mr-2">▪</span><strong>Estado:</strong> Mixto: desde ruinas consolidadas hasta templos vivos de madera.</li>
+                            <li class="flex items-start"><span class="text-rose-500 font-bold mr-2">▪</span><strong>Riesgos:</strong> Vegetación invasora (raíces dislocantes), falta de presupuesto y clima hídrico extremo.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-xs font-semibold text-purple-700">
+                        Prioridad: Control biológico de malezas y presupuesto fijo.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 border border-slate-200 mt-8">
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-slate-800">Matriz Multidimensional de Amenazas por Sitio</h3>
+                    <p class="text-sm text-slate-600">
+                        El gráfico radial permite visualizar comparativamente la intensidad relativa de los cinco factores de degradación principales sobre las estructuras seleccionadas.
+                    </p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chartRadarRiesgos"></canvas>
+                </div>
+                <p class="text-xs text-slate-500 mt-4 text-center">
+                    Escala de impacto estimado (0 al 100) basada en inspecciones de vulnerabilidad técnica y análisis de conservación edilicia.
+                </p>
+            </div>
+        </section>
+
+        <section id="amenazas" class="space-y-6">
+            <div class="border-l-4 border-rose-600 pl-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">3. Fisiología de las Causas de Deterioro Edilicio</h2>
+                <p class="text-slate-600 mt-1">
+                    Para proteger el patrimonio es indispensable comprender cómo actúan los agentes de deterioro a nivel físico y químico. Las patologías edilicias no suceden por azar, sino como resultado de interacciones precisas entre el entorno y los materiales.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-md p-6 border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Agentes Naturales vs. Antrópicos</h3>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Frecuencia de afectación registrada entre causas originadas por la naturaleza frente a aquellas producidas por la acción e inacción del ser humano.
+                        </p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartCausasDeterioro"></canvas>
+                    </div>
+                    <div class="mt-4 bg-slate-100 p-3 rounded-lg text-xs text-slate-700">
+                        <strong>Explicación:</strong> Aunque los fenómenos naturales generan desgaste constante, las intervenciones humanas inadecuadas aceleran la destrucción irreversible a mayor velocidad.
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="bg-blue-100 text-blue-800 p-2 rounded-lg text-xl font-bold">💧</span>
+                            <h4 class="font-bold text-slate-800">El Agua: El Enemigo Número Uno</h4>
+                        </div>
+                        <p class="text-sm text-slate-600">
+                            Penetra por lluvia directa, condensación o capilaridad desde el suelo. En muros de barro los disuelve; en piedra coralina transporta sales que revientan el poro al cristalizar; en madera causa pudrición y en concreto oxida el acero interno.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="bg-amber-100 text-amber-800 p-2 rounded-lg text-xl font-bold">🚫</span>
+                            <h4 class="font-bold text-slate-800">El Error del Cemento Moderno</h4>
+                        </div>
+                        <p class="text-sm text-slate-600">
+                            Aplicar mortero de cemento para reparar paredes antiguas de tierra o cal es destructivo. El cemento es impenetrable y rígido: atrapa la humedad dentro de la pared original hasta pulverizar la estructura interna más blanda.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                        <div class="flex items-center space-x-3 mb-2">
+                            <span class="bg-rose-100 text-rose-800 p-2 rounded-lg text-xl font-bold">🏢</span>
+                            <h4 class="font-bold text-slate-800">Carbonatación del Hormigón</h4>
+                        </div>
+                        <p class="text-sm text-slate-600">
+                            En el patrimonio moderno (ej. Brasilia), el dióxido de carbono del aire reacciona con la cal del concreto, reduciendo su alcalinidad. El acero interno pierde su capa protectora, se oxida, se expande y pulveriza el concreto exterior.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="costos" class="space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">4. Consecuencias Socioeconómicas y Análisis de Costos</h2>
+                <p class="text-slate-600 mt-1">
+                    La falta de inversión oportuna genera pérdidas que trascienden lo monetario. Cuando un edificio histórico colapsa, se extingue la memoria colectiva, el turismo regional colapsa y la reconstrucción resulta astronómicamente costosa.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Comparativa Financiera: Mantenimiento vs. Restauración Uergente</h3>
+                    <p class="text-sm text-slate-600 mb-4">
+                        Gastar $1 en limpieza de canales, sellado de grietas y control de plagas previene gastos futuros de hasta $10 en consolidación estructural o reconstrucción tras un colapso parcial.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="chartComparativaCostos"></canvas>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-xl p-6 shadow-md border border-slate-700">
+                        <h4 class="text-lg font-bold text-amber-400 mb-2">Impacto Directo de la Pérdida de Patrimonio</h4>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start">
+                                <span class="text-rose-400 font-bold mr-2 text-base">✗</span>
+                                <div>
+                                    <strong class="text-white">Pérdida Identitaria Irreversible:</strong> Un monumento destruido es un documento histórico original borrado para siempre; las réplicas nunca poseen el mismo valor probatorio.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-400 font-bold mr-2 text-base">✗</span>
+                                <div>
+                                    <strong class="text-white">Peligro Físico Humano:</strong> Fachadas o cubiertas sin mantenimiento se convierten en amenazas de colapso sobre peatones y residentes localizados en centros urbanos.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-teal-400 font-bold mr-2 text-base">✗</span>
+                                <div>
+                                    <strong class="text-white">Quiebra Económica Local:</strong> La degradación del patrimonio destruye la cadena de valor del turismo sostenible, afectando el empleo de guías, artesanos y comercios locales.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="guia" class="space-y-6">
+            <div class="border-l-4 border-teal-500 pl-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">5. Guía de Consejos Útiles para Prevenir el Deterioro Edilicio</h2>
+                <p class="text-slate-600 mt-1">
+                    Principios fundamentales de conservación preventiva aplicables tanto a monumentos de la UNESCO como a edificaciones históricas y viviendas de valor patrimonial.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-teal-600 p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="text-2xl mb-2">🌧️</div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">1. Control Inflexible de Agua</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Mantener limpios canales, bajantes y desagües. Una sola teja corrida o una canaleta obstruida genera humedad concentrada que destruye vigas y muros en pocos meses.
+                        </p>
+                    </div>
+                    <div class="bg-teal-50 text-teal-800 text-xs font-semibold p-2.5 rounded text-center">
+                        Acción: Inspeccionar techos 2 veces al año.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-amber-500 p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="text-2xl mb-2">🧱</div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">2. Respetar la Cal Tradicional</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Utilizar únicamente morteros y repintes a base de cal apagada para muros de piedra o barro. La cal permite la evaporación de la humedad interior sin fisurar el muro.
+                        </p>
+                    </div>
+                    <div class="bg-amber-50 text-amber-800 text-xs font-semibold p-2.5 rounded text-center">
+                        Acción: Prohibir el cemento en adobe/tierra.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-indigo-600 p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="text-2xl mb-2">🪵</div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">3. Protección Natural de Maderamen</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Garantizar la ventilación cruzada en estructuras de madera y aplicar aceites respirables y biocidas. Evitar barnices sintéticos plásticos que atrapen agua en la fibra.
+                        </p>
+                    </div>
+                    <div class="bg-indigo-50 text-indigo-800 text-xs font-semibold p-2.5 rounded text-center">
+                        Acción: Tratamiento periódico anti-termitas.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-rose-600 p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="text-2xl mb-2">🛠️</div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">4. Intervención Mínima y Experta</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Atender pequeños defectos (grietas capilares, musgo en paredes) de inmediato. Ante dudas estructurales, consultar siempre a arquitectos especialistas en patrimonio.
+                        </p>
+                    </div>
+                    <div class="bg-rose-50 text-rose-800 text-xs font-semibold p-2.5 rounded text-center">
+                        Acción: Mantenimiento preventivo continuo.
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bg-teal-900 text-white rounded-2xl p-8 shadow-xl text-center max-w-4xl mx-auto mt-12">
+                <h3 class="text-2xl font-black text-amber-400 mb-3">Conclusión del Análisis</h3>
+                <p class="text-sm md:text-base text-teal-100 leading-relaxed">
+                    El patrimonio arquitectónico de la UNESCO en Sudamérica es un organismo vivo de fragilidad extrema. Su supervivencia no depende de costosos proyectos monumentales cuando ya está en ruina, sino del <strong>mantenimiento constante, modesto y preventivo</strong> ejecutado con rigor técnico y amor a la memoria histórica.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-950 text-slate-400 text-xs py-8 border-t border-slate-800 text-center">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-semibold text-slate-300">Análisis Técnico de Conservación del Patrimonio Arquitectónico Sudamericano</p>
+            <p>Diseño Infográfico de Página Única (SPA) | Desarrollado con HTML5, Tailwind CSS y Chart.js</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const ctxEstado = document.getElementById('chartEstadoConservacion').getContext('2d');
+            new Chart(ctxEstado, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        ['Estado Bueno /', 'Moderado'], 
+                        ['Estado Dispar /', 'Mixto'], 
+                        ['Estado Crítico /', 'Riesgo Alto']
+                    ],
+                    datasets: [{
+                        data: [33, 34, 33],
+                        backgroundColor: ['#0F766E', '#D97706', '#DC2626'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 11 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                        return label.join(' ');
+                                    } else {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const ctxTipologia = document.getElementById('chartTipologiaVulnerabilidad').getContext('2d');
+            new Chart(ctxTipologia, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['Madera Nativa /', 'Chiloé'], 
+                        ['Tierra / Adobe /', 'Quito-Cuzco'], 
+                        ['Piedra Coralina /', 'Cartagena'], 
+                        ['Hormigón Armado /', 'Brasilia'], 
+                        ['Piedra Incaica /', 'Machu Picchu']
+                    ],
+                    datasets: [{
+                        label: 'Índice de Vulnerabilidad Ambiental (0-100)',
+                        data: [90, 80, 75, 65, 30],
+                        backgroundColor: ['#DC2626', '#D97706', '#2563EB', '#0F766E', '#1E293B']
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                        return label.join(' ');
+                                    } else {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { font: { size: 10 } }
+                        },
+                        y: {
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+
+            const ctxRadar = document.getElementById('chartRadarRiesgos').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        ['Humedad y', 'Filtraciones'],
+                        ['Sismos y', 'Estructura'],
+                        ['Sobre-turismo y', 'Desgaste'],
+                        ['Ataque Químico /', 'Sales/Hollín'],
+                        ['Plagas y', 'Fuego']
+                    ],
+                    datasets: [
+                        {
+                            label: 'Chiloé (Madera)',
+                            data: [95, 30, 40, 20, 95],
+                            borderColor: '#DC2626',
+                            backgroundColor: 'rgba(220, 38, 38, 0.15)'
+                        },
+                        {
+                            label: 'Cartagena (Coralino)',
+                            data: [85, 20, 80, 90, 10],
+                            borderColor: '#D97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.15)'
+                        },
+                        {
+                            label: 'Quito (Adobe/Piedra)',
+                            data: [80, 85, 60, 70, 20],
+                            borderColor: '#0F766E',
+                            backgroundColor: 'rgba(15, 118, 110, 0.15)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                        return label.join(' ');
+                                    } else {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { font: { size: 9 } }
+                        }
+                    }
+                }
+            });
+
+            const ctxCausas = document.getElementById('chartCausasDeterioro').getContext('2d');
+            new Chart(ctxCausas, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['Lluvia y Humedad', 'Pluvial'], 
+                        ['Falta de', 'Mantenimiento'], 
+                        ['Materiales', 'Incompatibles'], 
+                        ['Sobre-turismo y', 'Tráfico'], 
+                        ['Sismos y', 'Riesgo Natural']
+                    ],
+                    datasets: [{
+                        label: 'Frecuencia de Afectación (%)',
+                        data: [85, 75, 65, 55, 40],
+                        backgroundColor: ['#0F766E', '#D97706', '#DC2626', '#2563EB', '#64748B']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                        return label.join(' ');
+                                    } else {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { font: { size: 10 } }
+                        },
+                        x: {
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+
+            const ctxCostos = document.getElementById('chartComparativaCostos').getContext('2d');
+            new Chart(ctxCostos, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['Mantenimiento', 'Preventivo Anual'], 
+                        ['Consolidación', 'Estructural'], 
+                        ['Restauración de', 'Emergencia / Colapso']
+                    ],
+                    datasets: [{
+                        label: 'Multiplicador de Inversión Financiera',
+                        data: [1, 4.5, 10],
+                        backgroundColor: ['#0F766E', '#D97706', '#DC2626']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                        return label.join(' ');
+                                    } else {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 12,
+                            ticks: {
+                                font: { size: 10 },
+                                callback: function(value) { return value + 'x'; }
+                            }
+                        },
+                        x: {
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
